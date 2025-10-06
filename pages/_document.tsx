@@ -11,8 +11,8 @@ export default function Document()
   />
   <link rel="canonical" href="https://daftarunifi.com.my/" /> 
   <link rel="icon" href="/favicon.ico" />
-  <link rel="icon" href="/favicon-32x32.ico" sizes="192x192" /> 
-  <link rel="icon" href="/favicon-192x192.ico" sizes="192x192" /> 
+  <link rel="icon" href="/favicon-32x32.ico" sizes="32x32" /> 
+  <link rel="icon" href="/favicon-192x192.png" sizes="192x192" /> 
 </Head> 
   <body>
     <Main /> 
