@@ -9,10 +9,11 @@ export default function Document()
     name="description"
     content="Compare and apply TM Unifi Malaysia broadband plans online. Fast, easy registration with coverage nationwide."
   />
-  <link rel="canonical" href="https://daftarunifi.com.my/" /> 
-  <link rel="icon" href="/favicon.ico" />
-  <link rel="icon" href="/favicon-32x32.ico" sizes="32x32" /> 
-  <link rel="icon" href="/favicon-192x192.png" sizes="192x192" /> 
+  <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="shortcut icon" href="/favicon.ico" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+<link rel="manifest" href="/site.webmanifest" />
 </Head> 
   <body>
     <Main /> 
