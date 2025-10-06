@@ -1,4 +1,5 @@
 import * as React from "react";
+import Head from "next/head";
 import {
   PlasmicComponent,
   extractPlasmicQueryData,
@@ -21,6 +22,11 @@ export default function PlasmicLoaderPage(props: {
     return <Error statusCode={404} />;
   }
   const pageMeta = plasmicData.entryCompMetas[0];
+
+  // 假设你 Plasmic 页面数据里有 meta.title 和 meta.description
+  const title = pageMeta.meta?.title || "默认标题";
+  const description = pageMeta.meta?.description || "默认描述";
+
   return (
     <PlasmicRootProvider
       loader={PLASMIC}
@@ -30,6 +36,11 @@ export default function PlasmicLoaderPage(props: {
       pageParams={pageMeta.params}
       pageQuery={router.query}
     >
+      <Head>
+        <title>{title}</title>
+        <meta name="description" content={description} />
+        <link rel="canonical" href={`https://yourdomain.com${pageMeta.path}`} />
+      </Head>
       <PlasmicComponent component={pageMeta.displayName} />
     </PlasmicRootProvider>
   );
@@ -37,14 +48,18 @@ export default function PlasmicLoaderPage(props: {
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const { catchall } = context.params ?? {};
-  const plasmicPath = typeof catchall === 'string' ? catchall : Array.isArray(catchall) ? `/${catchall.join('/')}` : '/';
+  const plasmicPath =
+    typeof catchall === "string"
+      ? catchall
+      : Array.isArray(catchall)
+      ? `/${catchall.join("/")}`
+      : "/";
   const plasmicData = await PLASMIC.maybeFetchComponentData(plasmicPath);
   if (!plasmicData) {
-    // non-Plasmic catch-all
+    // 非 Plasmic 页面，返回空props，可能触发404或其他处理
     return { props: {} };
   }
   const pageMeta = plasmicData.entryCompMetas[0];
-  // Cache the necessary data fetched for the page
   const queryCache = await extractPlasmicQueryData(
     <PlasmicRootProvider
       loader={PLASMIC}
@@ -55,9 +70,8 @@ export const getStaticProps: GetStaticProps = async (context) => {
       <PlasmicComponent component={pageMeta.displayName} />
     </PlasmicRootProvider>
   );
-  // Use revalidate if you want incremental static regeneration
   return { props: { plasmicData, queryCache }, revalidate: 60 };
-}
+};
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const pageModules = await PLASMIC.fetchPages();
@@ -69,4 +83,5 @@ export const getStaticPaths: GetStaticPaths = async () => {
     })),
     fallback: "blocking",
   };
-}
+};
+
