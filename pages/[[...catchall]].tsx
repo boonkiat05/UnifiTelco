@@ -69,4 +69,4 @@ export const getStaticPaths: GetStaticPaths = async () => {
     })),
     fallback: "blocking",
   };
-}里面是这样写的
+}
