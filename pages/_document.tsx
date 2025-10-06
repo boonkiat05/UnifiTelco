@@ -1,6 +1,7 @@
 import { Html, Head, Main, NextScript } from 'next/document' 
 export default function Document() 
 { return ( <Html lang="en"> <Head>
+  <meta name="robots" content="index, follow" />
   {/* 这里放你的favicon */} 
   <title>Daftar Unifi Malaysia – Compare & Apply TM Fiber Broadband Plans</title>
    <meta
