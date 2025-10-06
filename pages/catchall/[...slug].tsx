@@ -62,11 +62,13 @@ export const getStaticProps: GetStaticProps = async (context) => {
 export const getStaticPaths: GetStaticPaths = async () => {
   const pageModules = await PLASMIC.fetchPages();
   return {
-    paths: pageModules.map((mod) => ({
-      params: {
-        catchall: mod.path.substring(1).split("/"),
-      },
-    })),
+    paths: pageModules
+      .filter(mod => mod.path !== "/") // 过滤掉根路径，因为 index.tsx 负责处理
+      .map(mod => ({
+        params: {
+          catchall: mod.path.substring(1).split("/"),
+        },
+      })),
     fallback: "blocking",
   };
 }
