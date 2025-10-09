@@ -1,3 +1,4 @@
+import Head from "next/head"; // ← 加这一行
 import * as React from "react";
 import {
   PlasmicComponent,
@@ -25,6 +26,14 @@ export default function PlasmicLoaderPage(props: {
   const pageMeta = plasmicData.entryCompMetas[0];
 
   return (
+    <>
+      <Head>
+        <title>Daftar Unifi Malaysia – Compare & Apply TM Fiber Broadband Plans</title>
+        <meta name="description" content="Compare and apply TM Unifi Malaysia broadband plans online. Fast, easy registration with coverage nationwide." />
+        <meta name="robots" content="index, follow" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      
     <PlasmicRootProvider
       loader={PLASMIC}
       prefetchedData={plasmicData}
@@ -35,6 +44,7 @@ export default function PlasmicLoaderPage(props: {
     >
       <PlasmicComponent component={pageMeta.displayName} />
     </PlasmicRootProvider>
+    </>
   );
 }
 
